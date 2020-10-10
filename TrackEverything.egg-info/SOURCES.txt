@@ -1,0 +1,6 @@
+README.md
+setup.py
+TrackEverything.egg-info/PKG-INFO
+TrackEverything.egg-info/SOURCES.txt
+TrackEverything.egg-info/dependency_links.txt
+TrackEverything.egg-info/top_level.txt
