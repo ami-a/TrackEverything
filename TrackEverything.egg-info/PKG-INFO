@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: TrackEverything
-Version: 1.5
+Version: 1.6.0
 Summary: A package that combines detetction, classification and tracking in videos, using AI models.
 Home-page: https://github.com/ami-a/TrackEverything
 Author: Ami-A
