@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 import tensorflow as tf
 import cv2
 import numpy as np
-import statistical_methods as stat_m
+from . import statistical_methods as stat_m
 
 #region methods
 def load_tf_model(path):

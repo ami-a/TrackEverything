@@ -2,9 +2,9 @@
 frame by frame
 """
 import numpy as np
-import inspector
-import tool_box as tlbx
-import visualization_utils as visu
+from . import inspector
+from . import tool_box as tlbx
+from . import visualization_utils as visu
 
 class Detector:
     """A class that can be used to perform a detection and classification

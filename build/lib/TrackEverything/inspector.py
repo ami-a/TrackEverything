@@ -2,7 +2,7 @@
 """
 import numpy as np
 from scipy.optimize import linear_sum_assignment
-import tool_box as tlbx
+from . import tool_box as tlbx
 
 class DetectedObj:
     """A class that mange the detection data"""
