@@ -1,5 +1,6 @@
 README.md
 setup.py
+TrackEverything/__init__.py
 TrackEverything/detector.py
 TrackEverything/inspector.py
 TrackEverything/statistical_methods.py
