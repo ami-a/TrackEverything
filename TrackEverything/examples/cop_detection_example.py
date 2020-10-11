@@ -11,10 +11,10 @@ import cv2
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # pylint: disable=wrong-import-position
 import tensorflow as tf
-from detector import Detector
-from tool_box import DetectionVars,ClassificationVars,InspectorVars
-from statistical_methods import StatisticalCalculator, StatMethods
-from visualization_utils import VisualizationVars
+from TrackEverything.detector import Detector
+from TrackEverything.tool_box import DetectionVars,ClassificationVars,InspectorVars
+from TrackEverything.statistical_methods import StatisticalCalculator, StatMethods
+from TrackEverything.visualization_utils import VisualizationVars
 # pylint: enable=wrong-import-position
 
 #custome loading the detection model and only providing the model to the DetectionVars
