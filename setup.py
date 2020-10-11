@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="TrackEverything",
-    version="1.6.0",
+    version="1.6.1",
     author="Ami-A",
     author_email="schrodingerbot@gmail.com",
     description="A package that combines detetction, classification and tracking in videos, using AI models.",
@@ -22,7 +22,7 @@ setuptools.setup(
     python_requires='>=3.6',
     install_requires=[
         "numpy>=1.18.5",
-        "tensorflow>=2.0.0",
+        "tensorflow==2.2.0",
         "scipy>=1.4.1",
         "Pillow>=7.2.0",
         "opencv-contrib-python>=4.4.0.42"
