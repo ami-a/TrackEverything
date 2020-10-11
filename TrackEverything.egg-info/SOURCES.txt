@@ -11,5 +11,3 @@ TrackEverything.egg-info/SOURCES.txt
 TrackEverything.egg-info/dependency_links.txt
 TrackEverything.egg-info/requires.txt
 TrackEverything.egg-info/top_level.txt
-TrackEverything/examples/__init__.py
-TrackEverything/examples/cop_detection_example.py
