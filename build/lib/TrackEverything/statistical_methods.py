@@ -79,7 +79,7 @@ def no_average(param:StatParams):
     Returns:
         The last score
     """
-    return param.new_score_pt
+    return param.new_score_pt+param.pre_score*0
 
 def cumulative_moving_average(param:StatParams):
     """CMA
@@ -104,7 +104,7 @@ def finite_moving_average(param:StatParams):
     param.pre_score_list.append(param.new_score_pt)
     if pt_count<num:
         if pt_count==0:
-            return param.new_score_pt/num
+            return param.new_score_pt/num+param.pre_score*0
         return (param.new_score_pt)/num+param.pre_score
     last=param.pre_score_list.pop(0)
     return (param.new_score_pt-last)/num+param.pre_score
