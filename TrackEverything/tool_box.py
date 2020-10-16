@@ -55,7 +55,7 @@ def get_classified_detection_array(model,image,detection_array,classiffing_metho
         dic['class_res']=np.ones(len(detection_array))
     else:
         det_images=map(lambda x:crop_np_image(x[1],image),detection_array)
-        dic['class_res']=classiffing_method(model,np.asarray(list(det_images)))
+        dic['class_res']=classiffing_method(model,list(det_images))
     return dic
 
 def crop_np_image(coordinates,img):
@@ -75,7 +75,7 @@ def classify_detection(model,det_images,size=None,interpolation = cv2.INTER_LINE
 
     Args:
         model (tensorflow model): classification model
-        det_images (np.ndarray): batch of images in numpy array to classify
+        det_images (list[np.array]): list of images in numpy array format to classify
         size (tuple, optional): size to resize to, 1-D int32 Tensor of 2 elements:
             new_height, new_width (if None then no resizing). Defaults is None.
             (In custome function you can use model.inputs[0].shape.as_list()
