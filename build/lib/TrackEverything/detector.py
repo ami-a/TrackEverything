@@ -37,6 +37,7 @@ class Detector:
         Args:
             img (np.ndarray): current frame
         """
+        self.detections=[]#clear detection from last frame
         #Get detections that are over the threshold
         detection_arr=self.det_vars.detection_proccessing(
             img,
@@ -60,7 +61,6 @@ class Detector:
             )
 
         #Put classified detection in detections as DetectedObj
-        self.detections=[]
         for ind in range(len(classified_det_arr['det'])):
             self.detections.append(
                 inspector.DetectedObj(

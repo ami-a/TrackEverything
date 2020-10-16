@@ -29,9 +29,13 @@ def get_detection_array(detection_var,image):
         detection_var (DetectionVars): Class for defining the detection variables
         image (np.ndarray): current image
     """
+    height,width, = image.shape[:2]
     detections=detection_var.detection_model.predict(image[np.newaxis, ...])
-    return [[x[0],(x[1],x[2],x[3]-x[0],x[4]-x[1])] for x in detections if
-            x[0]>detection_var.detection_threshold and x[3]>x[0] and x[4]>x[1]]
+    return [
+            [x[0],(max(x[1],0),max(x[2],0),min(x[3]-x[0],width),min(x[4]-x[1],height))]
+            for x in detections if
+            x[0]>detection_var.detection_threshold and x[3]>x[0] and x[4]>x[1]
+        ]
 
 def get_classified_detection_array(model,image,detection_array,classiffing_method):
     """For each detection in detection_array it returns dic with
@@ -90,7 +94,9 @@ def classify_detection(model,det_images,size=None,interpolation = cv2.INTER_LINE
     #resize bounding box capture to fit classification model
     if size is not None:
         det_images=np.asarray(
-            list(map(lambda img: cv2.resize(img, size, interpolation=interpolation),det_images))
+            [
+                cv2.resize(img, size, interpolation = interpolation) for img in det_images
+            ]
         )
     predictions=model.predict(det_images)#make sure image at currect format like /255.0
     #if class is binary make sure size is 2

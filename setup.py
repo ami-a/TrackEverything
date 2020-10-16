@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="TrackEverything",
-    version="1.6.3",
+    version="1.6.4",
     author="Ami-A",
     author_email="schrodingerbot@gmail.com",
     description="A package that combines detetction, classification and tracking in videos, using AI models.",
