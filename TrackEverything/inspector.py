@@ -1,6 +1,7 @@
 """A module for managing the relationship between the trackers and detections
 """
 import numpy as np
+import cv2
 from scipy.optimize import linear_sum_assignment
 from . import tool_box as tlbx
 
@@ -53,7 +54,11 @@ class TrackerObj:
         self.new=True#is the tracker new
 
         ####
-        _ok = self.tracker.init(frame,bounding_box)
+        try:
+            _ok = self.tracker.init(frame,bounding_box)
+        except cv2.error as exption:
+            print("Oops!", exption.__class__, "occurred.")
+            _ok=False
         if not _ok:
             #tracker init not ok!
             #adding enough points to be removed
