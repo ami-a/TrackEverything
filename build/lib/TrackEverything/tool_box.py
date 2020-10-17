@@ -1,5 +1,6 @@
 """A module that handels the models and offers some helpfull methods"""
 from dataclasses import dataclass, field
+from typing import Iterable
 import tensorflow as tf
 import cv2
 import numpy as np
@@ -137,6 +138,10 @@ def non_max_suppressions(detections,threshold_iou=0.3):
         List[DetectedObj]: clean List of DetectedObj
     TODO:try with tf.image.non_max_suppression
     """
+    #checking if detection score is a vector or float
+    if len(detections)>0:
+        # pylint: disable=isinstance-second-argument-not-valid-type
+        eval_func=max if isinstance(detections[0].det_score, Iterable) else abs
     #removing the one with lowest score
     i=0
     while i<len(detections):
@@ -144,7 +149,7 @@ def non_max_suppressions(detections,threshold_iou=0.3):
         while j<len(detections):
             iou=box_iou(detections[i].bounding_box,detections[j].bounding_box)
             if iou>threshold_iou:
-                if detections[i].det_score>=detections[j].det_score:
+                if eval_func(detections[i].det_score)>=eval_func(detections[j].det_score):
                     del detections[j]
                     continue
                 del detections[i]
