@@ -57,7 +57,13 @@ class VisualizationVars:
     uncertainty_color:str="Orange"
     uncertainty_label:str="Unknown"
 
-def draw_boxes(image,detections,trackers,v_vars:VisualizationVars=VisualizationVars()):
+def draw_boxes(
+        image,
+        detections,
+        trackers,
+        v_vars:VisualizationVars=VisualizationVars(),
+        org_img_size=None
+    ):
     """A method for drawing boxes and labels on the image (it will replace the
     image with the new one)
 
@@ -67,16 +73,22 @@ def draw_boxes(image,detections,trackers,v_vars:VisualizationVars=VisualizationV
         trackers (List[TrackerObj]): A list of trackers objects to draw boxes around.
             (only if v_vars.show_trackers).
         v_vars (VisualizationVars): Extra parameters for the drwing style.
+        org_img_size (width, height):The original image size for bounding boxes
     """
     #set the dif value for colors array
     v_vars.colors=v_vars.colors if v_vars.colors is not None else STANDARD_COLORS
+    #calculate the factor for bounding box with different sized images
+    if org_img_size is None:
+        factors=(1,1)
+    else:
+        factors=(image.shape[1]/org_img_size[0],image.shape[0]/org_img_size[1])
     #creats the ImageDraw object
     image_pil = Image.fromarray(np.uint8(image)).convert('RGB')
     draw = ImageDraw.Draw(image_pil)
     #draw trackers
     if v_vars.show_trackers:
         for trck in trackers:
-            draw_box_and_text(draw,trck.bounding_box,color=v_vars.colors[-1])
+            draw_box_and_text(draw,trck.bounding_box,color=v_vars.colors[-1],factors=factors)
     #draw detections
     for det in detections:
         text =[]
@@ -95,11 +107,11 @@ def draw_boxes(image,detections,trackers,v_vars:VisualizationVars=VisualizationV
             text.append(f"Id:{str(det.id_num)}\n")
         #add the final score to the tag
         text.append(f"{100*det.class_score[class_num]:.0f}%")
-        draw_box_and_text(draw,det.bounding_box,color=color,text=''.join(text))
+        draw_box_and_text(draw,det.bounding_box,color=color,text=''.join(text),factors=factors)
     #replace the old image with new
     np.copyto(image, np.array(image_pil))
 
-def draw_box_and_text(draw,bounding_box,color="Red",thickness=2,text=""):
+def draw_box_and_text(draw,bounding_box,color="Red",thickness=2,text="",factors=(1,1)):
     """This method draws a box with a tag using the draw object
 
     Args:
@@ -108,11 +120,12 @@ def draw_box_and_text(draw,bounding_box,color="Red",thickness=2,text=""):
         color (str, optional): color for box and text. Defaults to "Red".
         thickness (int, optional): thickness of box lines. Defaults to 2.
         text (str, optional): the text to draw with the box. Defaults to "".
+        factors (width_ratio, height_ratio):The ratio size for bounding boxes
     """
-    left=bounding_box[0]
-    top=bounding_box[1]
-    right=left+bounding_box[2]
-    bottom=top+bounding_box[3]
+    left=bounding_box[0]*factors[0]
+    top=bounding_box[1]*factors[1]
+    right=left+bounding_box[2]*factors[0]
+    bottom=top+bounding_box[3]*factors[1]
     #draw box
     draw.line(
         [(left, top), (left, bottom), (right, bottom), (right, top),(left, top)],
