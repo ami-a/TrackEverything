@@ -79,14 +79,15 @@ class Detector:
             iou_overlapping_threshold=self.det_vars.non_max_sup_threshold,
             )
 
-    def draw_visualization(self,img):
+    def draw_visualization(self,img,original_size=None):
         """Draw bounding boxes and lables around targets using visualization
         varaubles as settings
 
         Args:
             img (np.array): frame to draw on
+            original_size (width,height): of the original image the bounding box where created on
         """
-        visu.draw_boxes(img,self.detections,self.trackers,self.vis_var)
+        visu.draw_boxes(img,self.detections,self.trackers,self.vis_var,org_img_size=original_size)
 
     def get_current_class_summary(self):
         """A dictionary containig the total number of current detections by class
