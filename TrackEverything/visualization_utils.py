@@ -1,6 +1,7 @@
 """A module for managing the visualization of the trackers and detections
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import List
 import numpy as np
 import PIL.Image as Image
 import PIL.ImageDraw as ImageDraw
@@ -49,8 +50,8 @@ class VisualizationVars:
         uncertainty_color (str): the color for uncertain final score. def="Orange"
         uncertainty_label (str): the label for uncertain final score. def="Unknown"
     """
-    labels:'list[str]'=None
-    colors:'list[str]'=None
+    labels:List[str]=field(default_factory=lambda: None)
+    colors:List[str]=field(default_factory=lambda: STANDARD_COLORS)
     show_ids:bool=True
     show_trackers:bool=False
     uncertainty_threshold:float=0
@@ -75,8 +76,6 @@ def draw_boxes(
         v_vars (VisualizationVars): Extra parameters for the drwing style.
         org_img_size (width, height):The original image size for bounding boxes
     """
-    #set the dif value for colors array
-    v_vars.colors=v_vars.colors if v_vars.colors is not None else STANDARD_COLORS
     #calculate the factor for bounding box with different sized images
     if org_img_size is None:
         factors=(1,1)

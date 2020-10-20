@@ -1,6 +1,6 @@
 """A module that handels the models and offers some helpfull methods"""
 from dataclasses import dataclass, field
-from typing import Iterable
+from typing import Iterable, Any, Callable
 import cv2
 import numpy as np
 from . import statistical_methods as stat_m
@@ -251,7 +251,7 @@ class InspectorVars:
     max_trck_fails: float=10.0
     trck_failure_pt:float=1.0
     trck_reward_pt:float=0.5
-    trck_type:'method'=get_tracker("CSRT")
+    trck_type:Callable[[str],None]=get_tracker("CSRT")
     trck_id_generator:Ids=Ids(0)
     trck_resizing:bool=True
 
@@ -283,8 +283,8 @@ class DetectionVars:
         non_max_sup_threshold (float): Non max suppressions threshold if<0 disabled. Def 0.3
     """
     detection_model_path:str=field(default=None)
-    detection_model:'typing.Any'=field(default=None)
-    detection_proccessing:'typing.method'=get_detection_array
+    detection_model:Any=field(default=None)
+    detection_proccessing:type(get_detection_array)=get_detection_array
     detection_threshold:float=0.5
     non_max_sup_threshold:float=0.3
 
@@ -311,8 +311,8 @@ class ClassificationVars:
     numpy NxM vector where N num of images, M num of classes and filled with scores.
     """
     class_model_path:str=field(default=None)
-    class_model:'typing.Any'=field(default=None)
-    class_proccessing:'typing.method'=classify_detection
+    class_model:Any=field(default=None)
+    class_proccessing:type(classify_detection)=classify_detection
 
     def load_model(self):
         """loading the model first from path else from model var
