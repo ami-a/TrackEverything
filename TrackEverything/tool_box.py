@@ -1,7 +1,6 @@
 """A module that handels the models and offers some helpfull methods"""
 from dataclasses import dataclass, field
 from typing import Iterable
-import tensorflow as tf
 import cv2
 import numpy as np
 from . import statistical_methods as stat_m
@@ -16,6 +15,8 @@ def load_tf_model(path):
     Returns:
         [tf model]: return a tf model object
     """
+    #import inside method to remove the requierment of tf
+    import tensorflow as tf# pylint: disable=import-outside-toplevel
     print(f"Loading model from {path}...")
     model=tf.keras.models.load_model(path)
     print("Model loaded!")
