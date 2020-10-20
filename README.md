@@ -1,5 +1,78 @@
 # TrackEverything
 
+This Cops Detection project is an open-source framework built on top of TensorFlow and uses object detection models, classification models, tracking algorithms and statistics-based decision making. The project allows you to detected cops and parking enforcement officers via a remote webcam and performs tasks accordingly like alert you or activate parking payment if you forgot. Any use of this project to break the law is in your personal risk and ill-advised. The classification model currently based on the Israeli police and parking enforcement officers, so you can expect high performance in countries with similar uniforms.<p align="center"><img src="images/screens/vid_05.png" width=676 height=450></p>
+There are some tryout videos on [this channel](https://www.youtube.com/channel/UCXe7nDL2ihawDW6J4Dl1XUw).<br>
+Contributions to the codebase are welcome and I would love to hear back from
+you if you find this project useful.
+## How does it work
+I recommend reading [this](Explanation.md) file first to understand the pipeline and the methods used.
+
+## Requirements
+At this moment there are two options to run the project:
+
+* Using a local webcam on the machine.
+* Using a remote webcam on a device like a Raspberry Pi
+
+## Installation
+You can install the requirements with the Python Package Installer (pip), clone the project repository and proceed to the installation.
+
+```bash
+git clone https://gitlab.com/Byakugan/cops-detection.git
+```
+### Python Package Installation
+[![TensorFlow 2.2](https://img.shields.io/badge/TensorFlow-2.2-FF6F00?logo=tensorflow)](https://github.com/tensorflow/tensorflow/releases/tag/v2.2.0)
+[![Python 3.8](https://img.shields.io/badge/Python-3.8-3776AB)](https://www.python.org/downloads/release/python-380/)
+
+I used Python 3.8.1 but the code should work for Python 3.5+, in the comments I mention the versions I used.
+```bash
+# upgrade pip
+python -m pip install --upgrade pip
+# TensorFlow 2.2
+python -m pip install tensorflow
+# opencv-contrib-python 4.3.0.36   
+python -m pip install opencv-contrib-python  
+# Pillow 7.2.0
+python -m pip install pillow 
+# tf-slim 1.1.0  
+python -m pip install tf-slim
+# matplotlib 3.3.0
+python -m pip install matplotlib
+```
+## How to Start
+
+### Using a local webcam
+
+Run the **GetCopsAndTrackCam.py** file and you should expect in a few seconds to see your webcam feed with the detection marking and boxes.
+
+### Using a remote webcam
+
+You can use a remote camera to get the data, I used a Raspberry Pi running MJPG-Streamer, you can follow [this](https://www.sigmdel.ca/michel/ha/rpi/streaming_en.html) guide.<br>
+I also used an old laptop webcam and converted it to a USB camera, you can see how to do this [here](https://www.youtube.com/watch?v=C8pFkhkTvqo).
+<p align="center"><img src="images/parts/raspberry-p-3.jpg" width=200 height=200><img src="images/parts/laptop_cams.jpg" width=200 height=200></p>
+You can also add a GSM internet USB stick to the Pi and a custom charger to work in your car anywhere.
+<p align="center"><img src="images/parts/sierra-wireless-885.jpg" width=200 height=200><img src="images/parts/RaspiPower.jpg" width=350 height=200></p>
+
+Once you have your stream URL, for example, this is on my local network <br>`http://192.168.14.197:8085/?action=stream` (you can add user+pass, SSL etc.), paste it to the **GetCopsAndTrackRemoteCam.py** file in the `Stream_url` var.<br>
+Make sure to change the `H` and `W` vars accordingly since we are using multiprocessing and need to allocate the correct memory size.<br>
+Run the **GetCopsAndTrackRemoteCam.py** file and you should expect in a few seconds to see your webcam feed and another feed with the detection marking and boxes.
+
+## More Options
+
+### Parameters and Actions Adjustment
+You can edit parameters at the top of the file and disable the marking (to accelerate the detection process), as well as the `COPS_detected()` function that gets invoked when a cop/parking enforcement officer is detected in the frame with confidence over the `cop_precentage_invoke` variable. 
+
+### Pick Different Object Detection Models
+You can choose from [here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) different object detection models and add them to `models/persons` and change the `model_name` var. Make sure to choose only models with boxes as output.
+
+### Use a Custom Cop Classifier
+You can make yourself a cop classifier using TensorFlow and images you collect and label them, just add to `models/cop_class`.<br>Make sure to use the sigmoid activation function on the output layer, and update the image reshaping sizes and the `filepathes` var.
+
+## Future Improvements
+* Add support for multiple cameras
+* Add an option to run the entire project on the Raspberry Pi using TensorFlow Lite
+* Add support for other countries
+* Use GAN's to make more accurate models and pipelines
+
 ## Overview
 
 This project uses the wonders of machine learning to detect cops and various law enforcement personal by using CNNs and tracking algorithms to gather statistics. This project is meant for educational purposes and is not to be misused.
