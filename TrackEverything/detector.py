@@ -40,6 +40,7 @@ class Detector:
         self.detections=[]#clear detection from last frame
         #Get detections that are over the threshold
         detection_arr=self.det_vars.detection_proccessing(
+            self.det_vars,
             img,
         )
         #if detection faild
