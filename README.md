@@ -9,9 +9,8 @@ I recommend jumping to [this](#Overview) part first to understand the p
 
 ## Installation & Requirements<br>[![Python 3.7+](https://img.shields.io/badge/Python-3.7+-3776AB)](https://www.python.org/downloads/release/python-370/)  [![OpenCv 3.5+](https://img.shields.io/badge/OpenCv-3.5+-3fd4d4)]()
 You can easily install the package with the Python Package Installer pip.
+I used Python 3.8 but the code should work for Python 3.7+, additional requirements like NumPy will be checked and installed automatically.
 
-
-I used Python 3.8.1 but the code should work for Python 3.7+, additional requirements like NumPy will be checked and installed automatically.
 ```bash
 # upgrade pip
 python -m pip install --upgrade pip
