@@ -1,42 +1,22 @@
 # TrackEverything
 
-This project is an open-source package built in Python, it uses and combine the data form object detection modles, classification models, tracking algorithms and statistics-based decision making. The project allows you to take any detection/classification models from any Python library like Tensorflow or PyTorch and add to them tracking algorithems and increase the accuracy using statistical data gathered from multiple frames.
+This project is an open-source package built in Python, it uses and combine the data form object detection models, classification models, tracking algorithms and statistics-based decision making. The project allows you to take any detection/classification models from any Python library like TensorFlow or PyTorch and add to them tracking algorithms and increase the accuracy using statistical data gathered from multiple frames.
 <br>
 Contributions to the codebase are welcome and I would love to hear back from
 you if you find this package useful.
 ## How does it work
 I recommend jumping to [this](#Overview) part first to understand the pipeline and the methods used.
 
-## Requirements
-At this moment there are two options to run the project:
-
-* Using a local webcam on the machine.
-* Using a remote webcam on a device like a Raspberry Pi
-
 ## Installation
-You can install the requirements with the Python Package Installer (pip), clone the project repository and proceed to the installation.
-
-```bash
-git clone https://gitlab.com/Byakugan/cops-detection.git
-```
-### Python Package Installation
-[![TensorFlow 2.2](https://img.shields.io/badge/TensorFlow-2.2-FF6F00?logo=tensorflow)](https://github.com/tensorflow/tensorflow/releases/tag/v2.2.0)
+You can easily install the package with the Python Package Installer pip.
 [![Python 3.8](https://img.shields.io/badge/Python-3.8-3776AB)](https://www.python.org/downloads/release/python-380/)
 
-I used Python 3.8.1 but the code should work for Python 3.5+, in the comments I mention the versions I used.
+I used Python 3.8.1 but the code should work for Python 3.7+, additional requirements like NumPy will be checked and installed automatically.
 ```bash
 # upgrade pip
 python -m pip install --upgrade pip
-# TensorFlow 2.2
-python -m pip install tensorflow
-# opencv-contrib-python 4.3.0.36   
-python -m pip install opencv-contrib-python  
-# Pillow 7.2.0
-python -m pip install pillow 
-# tf-slim 1.1.0  
-python -m pip install tf-slim
-# matplotlib 3.3.0
-python -m pip install matplotlib
+# TrackEverything
+python -m pip install TrackEverything
 ```
 ## How to Start
 
