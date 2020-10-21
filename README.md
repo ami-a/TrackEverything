@@ -26,7 +26,7 @@ I made two different repositories that demonstrate the use of this package.
 * [Cop Detection](https://github.com/ami-a/CopDetection) - An example of using a famous object detection model and custom classification model to detect with high accuracy, law-informant personal.
 * [Mask Detection](https://github.com/ami-a/MaskDetection) - Few different examples of using the package with head detection/face detection/face detection+classification models to with high accuracy persons with or without a mask.
 
-### Using a remote webcam
+### Basic Steps
 
 You can use a remote camera to get the data, I used a Raspberry Pi running MJPG-Streamer, you can follow [this](https://www.sigmdel.ca/michel/ha/rpi/streaming_en.html) guide.<br>
 I also used an old laptop webcam and converted it to a USB camera, you can see how to do this [here](https://www.youtube.com/watch?v=C8pFkhkTvqo).
