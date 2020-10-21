@@ -1,9 +1,9 @@
 # TrackEverything
 
-This Cops Detection project is an open-source framework built on top of TensorFlow and uses object detection models, classification models, tracking algorithms and statistics-based decision making. The project allows you to detected cops and parking enforcement officers via a remote webcam and performs tasks accordingly like alert you or activate parking payment if you forgot. Any use of this project to break the law is in your personal risk and ill-advised. The classification model currently based on the Israeli police and parking enforcement officers, so you can expect high performance in countries with similar uniforms.<p align="center"><img src="images/screens/vid_05.png" width=676 height=450></p>
-There are some tryout videos on [this channel](https://www.youtube.com/channel/UCXe7nDL2ihawDW6J4Dl1XUw).<br>
+This project is an open-source package built in Python and uses and combine the data form object detection modles, classification models, tracking algorithms and statistics-based decision making. The project allows you to take any detection/classification models from any Python library like Tensorflow or Pytorch and add to them tracking algorithems and increase the accuracy using statistical data gathered from multiple frames.
+<br>
 Contributions to the codebase are welcome and I would love to hear back from
-you if you find this project useful.
+you if you find this package useful.
 ## How does it work
 I recommend reading [this](Explanation.md) file first to understand the pipeline and the methods used.
 
