@@ -19,9 +19,12 @@ python -m pip install TrackEverything
 ```
 ## How to Start
 
-### Using a local webcam
+### Available Examples
 
-Run the **GetCopsAndTrackCam.py** file and you should expect in a few seconds to see your webcam feed with the detection marking and boxes.
+I made two different repositories that demonstrate the use of this package.
+
+* [Cop Detection]() - An example of using a famous object detection model and custom classification model to detect with high accuracy, law-informant personal.
+* [Mask Detection]() - Few different examples of using the package with head detection/face detection/face detection+classification models to with high accuracy persons with or without a mask.
 
 ### Using a remote webcam
 
