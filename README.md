@@ -7,9 +7,9 @@ you if you find this package useful.
 ## How does it work
 I recommend jumping to [this](#Overview) part first to understand the pipeline and the methods used.
 
-## Installation
+## Installation [![Python 3.8](https://img.shields.io/badge/Python-3.8-3776AB)](https://www.python.org/downloads/release/python-380/)
 You can easily install the package with the Python Package Installer pip.
-[![Python 3.8](https://img.shields.io/badge/Python-3.8-3776AB)](https://www.python.org/downloads/release/python-380/)
+
 
 I used Python 3.8.1 but the code should work for Python 3.7+, additional requirements like NumPy will be checked and installed automatically.
 ```bash
