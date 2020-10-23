@@ -42,7 +42,7 @@ If you want to add the result to the frame, simply use the `draw_visualization(f
 ### Pick Different Tracker Types
 I use in this package tracker objects from the OpenCV library, in the `InspectorVars` class you can choose different type of trackers, the default tracker type is [CSRT](https://docs.opencv.org/3.4/d2/da2/classcv_1_1TrackerCSRT.html) (A [Discriminative Correlation Filter Tracker with Channel and Spatial Reliability](https://arxiv.org/abs/1611.08461)).
 
-<p align="center"><img src="cd/images/charts/csr_dcf.png" width="506" height="446"/><br>Overview of the CSR-DCF approach. An automatically estimated spatial reliability map restricts the correlation filter to the parts suitable for tracking (top) improving localization within a larger search region and performance for irregularly shaped objects. Channel reliability weights calculated in the constrained optimization
+<p align="center"><img src="images/charts/csr_dcf.png" width="506" height="446"/><br>Overview of the CSR-DCF approach. An automatically estimated spatial reliability map restricts the correlation filter to the parts suitable for tracking (top) improving localization within a larger search region and performance for irregularly shaped objects. Channel reliability weights calculated in the constrained optimization
 step of the correlation filter learning reduce the noise of the weight-averaged filter response (bottom).</p>
 
 But there are many more trackers types in OpenCV that you can choose from, here is a summary by Adrian Rosebrock: 
