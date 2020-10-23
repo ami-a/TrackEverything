@@ -28,11 +28,14 @@ I made two different repositories that demonstrate the use of this package.
 
 ### Basic Steps
 
-The main class is called a detector (`Detector`), you first need to defined it's parameters.
+The main class is called a detector (`Detector`), you first need to define it's parameters.
 * `DetectionVars`- contains the detection model itself as well as interpolation methods (you can use a model the dose both).
 * `ClassificationVars` - contains the classification model (if exist) as well as interpolation methods.
 * `InspectorVars` - contains the logic as well as the statistical parameters like tracking type and statistics methods like moving average. (The default value will not use previous data)
 * `VisualizationVars` - contains some parameters for the drawing on the frames if needed.
+
+Once your detector is all set, you can use the `update(frame)` method to update all the data according to the new frame.
+If you want to add the result to the frame, simply use the `draw_visualization(frame)` method to add bounding boxes and text to the frame.
 
 ## More Options
 
