@@ -5,7 +5,7 @@ This project is an open-source package built in Python, it uses and combine the 
 Contributions to the codebase are welcome and I would love to hear back from
 you if you find this package useful.
 ## How does it work
-I recommend jumping to [this](#Pipeline) part first to understand the pipeline and the methods used.
+I recommend jumping to [this](#the-pipeline) part first to understand the pipeline and the methods used.
 
 ## Installation & Requirements [![Python 3.7+](https://img.shields.io/badge/Python-3.7+-3776AB)](https://www.python.org/downloads/release/python-370/)  [![OpenCv 3.5+](https://img.shields.io/badge/OpenCv-3.5+-3fd4d4)]()
 You can easily install the package with the Python Package Installer pip.
