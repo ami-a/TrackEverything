@@ -71,8 +71,6 @@ For example - you can use a model to define a person's mood by it's face using h
 ## Future Improvements
 * Add support for multiple cameras
 * Add an option to run the entire project on the Raspberry Pi using TensorFlow Lite
-* Add support for other countries
-* Use GAN's to make more accurate models and pipelines
 
 ## Overview
 
