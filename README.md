@@ -57,9 +57,10 @@ But there are many more trackers types in OpenCV that you can choose from, here 
 
 ### Pick Different Statistical Method
 Inside the `InspectorVars` class you can insert a `StatisticalCalculator` object, this class currently contains several different statistical methods.
-* **CMA - Cumulative Moving Average**
-* **FMA - FiniteM Moving Average**
-* **EMA - Exponential Moving Average**
+* **Non** -No statistical information is saved.
+* **CMA - Cumulative Moving Average** - The data arrive in an ordered datum stream, and the user would like to get the average of all of the data up until the current datum point.
+* **FMA - Finite Moving Average** - The result is the unweighted mean of the previous n data.
+* **EMA - Exponential Moving Average** - It is a first-order infinite impulse response filter that applies weighting factors which decrease exponentially.
 
 ### Use a Custom Cop Classifier
 You can make yourself a cop classifier using TensorFlow and images you collect and label them, just add to `models/cop_class`.<br>Make sure to use the sigmoid activation function on the output layer, and update the image reshaping sizes and the `filepathes` var.
