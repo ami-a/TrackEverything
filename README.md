@@ -93,18 +93,14 @@ We have a list of `trackers` object which is a class that contains among other t
 
 ### 4th Step - Matching Detection with Trackers
 
-Using intersection over union (IOU) of a tracker bounding box and detection bounding box as a metric. We solve the linear sum assignment problem (also known as minimum weight matching in bipartite graphs) for the IOU matrix using the Hungarian algorithm (also known as Munkres algorithm). The machine learning package `scipy` has a build-in utility function that implements the Hungarian algorithm.
+Using intersection over union (IOU) of a tracker bounding box and detection bounding box as a metric. We solve the linear sum assignment problem (also known as minimum weight matching in bipartite graphs) for the IOU matrix using the Hungarian algorithm (also known as Munkres algorithm). The machine learning package `SciPy` has a build-in utility function that implements the Hungarian algorithm.
 ```bash
-matched_idx = linear_sum_assignment(-IOU_mat)
+matched_idx = linear_sum_assignment(-iou_matrix)
 ```
 The linear_sum_assignment function by default minimizes the cost, so we need to reverse the sign of IOU matrix for maximization.<br>
 The result will look like this:<p align="center"><img src="images/charts/detection_track_match.png" width=548 height=426></p>
-For each unmatched detector, we create a new tracker with the detector's data, for the unmatched trackers we update the accuracy indicators for the tracker and remove any that are way off. For the matched ones, we update the tracker position to the more accurate detection box, we get the class data and average it with the previous 15 data points of the tracker (you can change that by setting the `num_avg` var).
+For each unmatched detector, we create a new tracker with the detector's data, for the unmatched trackers we update the accuracy indicators for the tracker and remove any that are way off. For the matched ones, we update the tracker position to the more accurate detection box, we get the classification data and use the `StatisticalCalculator` class to adjust the results.
 
 ### 5th Step - Decide What to Do
 
-After step 4 the `Trackers` list is up to date with all the statistical and current data. The tracker class has a method to return the current classifications and confidence of those scores, we then update the detectors and iterate through them. A detector with low confidence score probably came from a tracker with not enough data (need at least `num_avg` data point to get the maximum score) or the detection is poor, we mark those in orange. A detector with a high enough confidence score will be green if it's not a cop, and red/blue if it is. The trackers that are not covered with detection boxes will show in cyan.
-
-
-
-
+After step 4 the `trackers` list is up to date with all the statistical and current data. The tracker class has a method to return the current classifications and confidence of those scores, we then update the detectors and iterate through them. A detector with low confidence score probably came from a tracker with not enough data or the detection is poor, we can mark those using the `uncertainty` parameters in the `VisualizationVars`. We can then draw all the results or get the results directly from the `detections` list.
