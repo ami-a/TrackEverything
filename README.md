@@ -74,25 +74,22 @@ For example - you can use a model to define a person's mood by it's face using h
 
 ## The Pipeline
 
-The pipeline starts by receiving a series of images (frames) and outputs a list of tracker objects that contains the persons detected and the probability of them being a cop.
+The pipeline starts by receiving a series of images (frames) and outputs a list of tracker objects that contains the objects detected and the probability of them being in a class.
 <p align="center"><img src="images/charts/pro_flow.png" width=650 height=424></p>
 
 ## Breaking it Down to 5 Steps
 
 ### 1st Step - Get All Detections in Current Frame 
 
-First, we take the frame and passe it through an object detection model, I use the base of [this](https://github.com/tensorflow/models/tree/master/research/object_detection) Object Detection API(I modified the version for TF1 since the TF2 version only came out 10 days ago). This model is trained on the [COCO dataset](http://cocodataset.org/) which detects around 90 different objects, you can choose [here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) some models with different CNN architectures. I used the model to give me all the persons detected in a frame. Later I filter out redundant overlapping detections using the Non-maximum Suppression (NMS) method.
+First, we take the frame and passe it through an object detection model, we can use any Python model, then filter out redundant overlapping detections using the Non-maximum Suppression (NMS) method and add all of the detection to the `detections` list.
 
-### 2nd Step - Get Classification Probabilities for the Detected Persons
+### 2nd Step - Get Classification Probabilities for the Detected Objects
 
-After we have the persons from step 1, we put them through a classification model to determine the probability of them being a cop. I used the `Xception` CNN architecture with some added layers to train this model, I used this architecture for its low parameters count since my GPU does not have much to offer. <p align="center"><img src="images/charts/Xception.png" width=540 height=394></p>Then, we create our `Detections` object list and which contains the positions boxes and the classification data.
+After we have the detections from step 1, we put them through a classification model to determine the probability of them being in a certain class (if no classification model is supplied the classification is applied during the previous step). We do this by cropping the frame to the object bounding box and then pass it through the classification model. We add this data as a vector of probabilities to each of the detection in the `detections` list.
 
 ### 3rd Step - Updated the Trackers Object List
 
-We have a list of `Trackers` object which is a class that contains an 
-
-
-My tracker class also contains a unique ID, previous statistics about this ID and indicators for the accuracy of this tracker. In the first frame, this `Trackers` list is empty and then in step 4, it's being filled with new trackers matching the detected objects. If the `Trackers` list is not empty, in this step we update the trackers positions using the current frame and dispose of failed trackers.
+We have a list of `trackers` object which is a class that contains among other things an OpenCV tracker object, unique ID, previous statistics about this ID and indicators for the accuracy of this tracker. In the first frame, this `trackers` list is empty and then in step 4, it's being filled with new trackers matching the detected objects. If the `trackers` list is not empty, in this step we update the trackers positions using the current frame and dispose of failed trackers.
 
 ### 4th Step - Matching Detection with Trackers
 
