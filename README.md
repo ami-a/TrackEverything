@@ -1,6 +1,6 @@
 # TrackEverything
 
-This project is an open-source package built in Python, it uses and combine the data form object detection models, classification models, tracking algorithms and statistics-based decision making. The project allows you to take any detection/classification models from any Python library like TensorFlow or PyTorch and add to them tracking algorithms and increase the accuracy using statistical data gathered from multiple frames.
+This project is an open-source package built-in Python, it uses and combines the data form object detection models, classification models, tracking algorithms and statistics-based decision making. The project allows you to take any detection/classification models from any Python library like TensorFlow or PyTorch and add to them tracking algorithms and increase the accuracy using statistical data gathered from multiple frames.
 <br>
 Contributions to the codebase are welcome and I would love to hear back from
 you if you find this package useful.
@@ -28,7 +28,7 @@ I made two different repositories that demonstrate the use of this package.
 
 ### Basic Steps
 
-The main class is called a detector (`Detector`), you first need to define it's parameters.
+The main class is called a detector (`Detector`), you first need to define its parameters.
 * `DetectionVars`- contains the detection model itself as well as interpolation methods (you can use a model the dose both).
 * `ClassificationVars` - contains the classification model (if exist) as well as interpolation methods.
 * `InspectorVars` - contains the logic as well as the statistical parameters like tracking type and statistics methods like moving average. (The default value will not use previous data)
@@ -40,7 +40,7 @@ If you want to add the result to the frame, simply use the `draw_visualization(f
 ## More Options
 
 ### Pick A Different Tracker Type
-I use in this package tracker objects from the OpenCV library, in the `InspectorVars` class you can choose different type of trackers, the default tracker type is [CSRT](https://docs.opencv.org/3.4/d2/da2/classcv_1_1TrackerCSRT.html) (A [Discriminative Correlation Filter Tracker with Channel and Spatial Reliability](https://arxiv.org/abs/1611.08461)).
+I use in this package tracker objects from the OpenCV library, in the `InspectorVars` class you can choose a different type of trackers, the default tracker type is [CSRT](https://docs.opencv.org/3.4/d2/da2/classcv_1_1TrackerCSRT.html) (A [Discriminative Correlation Filter Tracker with Channel and Spatial Reliability](https://arxiv.org/abs/1611.08461)).
 
 <p align="center"><img src="images/charts/csr_dcf.png" width="506" height="446"/><br>Overview of the CSR-DCF approach. An automatically estimated spatial reliability map restricts the correlation filter to the parts suitable for tracking (top) improving localization within a larger search region and performance for irregularly shaped objects. Channel reliability weights calculated in the constrained optimization
 step of the correlation filter learning reduce the noise of the weight-averaged filter response (bottom).</p>
@@ -62,11 +62,11 @@ Inside the `InspectorVars` class you can insert a `StatisticalCalculator` object
 * **FMA - Finite Moving Average** - The result is the unweighted mean of the previous n data.
 * **EMA - Exponential Moving Average** - It is a first-order infinite impulse response filter that applies weighting factors which decrease exponentially.
 
-This are just some basic methods and you can add many more.
+These are just some basic methods and you can add many more.
 
 ### Others
 There are many more options in this package, you can use the built in Non-Max Suppressions on your models, you can give each classification category a different weight in the statistics.
-For example - you can use a model to define a person's mood by it's face using head detection and a classification model that gives a back a category of 0 if it dose not have high enough score (for example if the persons is with it's back to the camera). You can then set the impact (0.0-1.0) of category 0 to be very low, and so when the person turns around the data on him is saved and is not overwritten.
+For example - you can use a model to define a person's mood by its face using head detection and a classification model that gives a back a category of 0 if it does not have high enough score (for example if the person is with it's back to the camera). You can then set the impact (0.0-1.0) of category 0 to be very low, and so when the person turns around the data on him is saved and is not overwritten.
 
 ## Future Improvements
 * Add support for multiple cameras
@@ -89,7 +89,7 @@ After we have the detections from step 1, we put them through a classification m
 
 ### 3rd Step - Updated the Trackers Object List
 
-We have a list of `trackers` object which is a class that contains among other things an OpenCV tracker object, unique ID, previous statistics about this ID and indicators for the accuracy of this tracker. In the first frame, this `trackers` list is empty and then in step 4, it's being filled with new trackers matching the detected objects. If the `trackers` list is not empty, in this step we update the trackers positions using the current frame and dispose of failed trackers.
+We have a list of `trackers` object which is a class that contains among other things an OpenCV tracker object, unique ID, previous statistics about this ID and indicators for the accuracy of this tracker. In the first frame, this `trackers` list is empty and then in step 4, it's being filled with new trackers matching the detected objects. If the `trackers` list is not empty, in this step we update the trackers' positions using the current frame and dispose of failed trackers.
 
 ### 4th Step - Matching Detection with Trackers
 
@@ -103,4 +103,4 @@ For each unmatched detector, we create a new tracker with the detector's data, f
 
 ### 5th Step - Decide What to Do
 
-After step 4 the `trackers` list is up to date with all the statistical and current data. The tracker class has a method to return the current classifications and confidence of those scores, we then update the detectors and iterate through them. A detector with low confidence score probably came from a tracker with not enough data or the detection is poor, we can mark those using the `uncertainty` parameters in the `VisualizationVars`. We can then draw all the results or get the results directly from the `detections` list.
+After step 4 the `trackers` list is up to date with all the statistical and current data. The tracker class has a method to return the current classifications and confidence of those scores, we then update the detectors and iterate through them. A detector with a low confidence score probably came from a tracker with not enough data or the detection is poor, we can mark those using the `uncertainty` parameters in the `VisualizationVars`. We can then draw all the results or get the results directly from the `detections` list.
