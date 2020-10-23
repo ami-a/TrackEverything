@@ -24,7 +24,7 @@ python -m pip install TrackEverything
 I made two different repositories that demonstrate the use of this package.
 
 * [Cop Detection](https://github.com/ami-a/CopDetection) - An example of using a famous object detection model and custom classification model to detect with high accuracy, law-informant personal.
-* [Mask Detection](https://github.com/ami-a/MaskDetection) - Few different examples of using the package with head detection/face detection/face detection+classification models to with high accuracy persons with or without a mask.
+* [Mask Detection](https://github.com/ami-a/MaskDetection) - Few different examples of using the package with head detection/face detection/face detection+classification models, to find and classify with high accuracy, persons with or without a mask.
 
 ### Basic Steps
 
