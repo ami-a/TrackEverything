@@ -23,20 +23,14 @@ python -m pip install TrackEverything
 
 I made two different repositories that demonstrate the use of this package.
 
-* [Cop Detection](https://github.com/ami-a/CopDetection) - An example of using a famous object detection model and custom classification model to detect with high accuracy, law-informant personal.
+* [Cop Detection](https://github.com/ami-a/CopDetection) - An example of using a famous object detection model and custom classification model to detect with high accuracy, law-informant personals.
 * [Mask Detection](https://github.com/ami-a/MaskDetection) - Few different examples of using the package with head detection/face detection/face detection+classification models, to find and classify with high accuracy, persons with or without a mask.
 
 ### Basic Steps
 
-You can use a remote camera to get the data, I used a Raspberry Pi running MJPG-Streamer, you can follow [this](https://www.sigmdel.ca/michel/ha/rpi/streaming_en.html) guide.<br>
-I also used an old laptop webcam and converted it to a USB camera, you can see how to do this [here](https://www.youtube.com/watch?v=C8pFkhkTvqo).
-<p align="center"><img src="images/parts/raspberry-p-3.jpg" width=200 height=200><img src="images/parts/laptop_cams.jpg" width=200 height=200></p>
-You can also add a GSM internet USB stick to the Pi and a custom charger to work in your car anywhere.
-<p align="center"><img src="images/parts/sierra-wireless-885.jpg" width=200 height=200><img src="images/parts/RaspiPower.jpg" width=350 height=200></p>
+The main class is called a detector ('Detector'), you first need to defined it's parameters.
+* 'DetectionVars'- contains the detection model itself as well as interpolation methods.
 
-Once you have your stream URL, for example, this is on my local network <br>`http://192.168.14.197:8085/?action=stream` (you can add user+pass, SSL etc.), paste it to the **GetCopsAndTrackRemoteCam.py** file in the `Stream_url` var.<br>
-Make sure to change the `H` and `W` vars accordingly since we are using multiprocessing and need to allocate the correct memory size.<br>
-Run the **GetCopsAndTrackRemoteCam.py** file and you should expect in a few seconds to see your webcam feed and another feed with the detection marking and boxes.
 
 ## More Options
 
