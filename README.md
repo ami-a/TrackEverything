@@ -28,11 +28,11 @@ I made two different repositories that demonstrate the use of this package.
 
 ### Basic Steps
 
-The main class is called a detector ('Detector'), you first need to defined it's parameters.
-* 'DetectionVars'- contains the detection model itself as well as interpolation methods (you can use a model the dose both).
-* 'ClassificationVars' - contains the classification model (if exist) as well as interpolation methods.
-* 'InspectorVars' - contains the logic as well as the statistical parameters like tracking type and statistics methods like moving average. (The default value will not use previous data)
-* 'VisualizationVars' - contains some parameters for the drawing on the frames if needed.
+The main class is called a detector (`Detector`), you first need to defined it's parameters.
+* `DetectionVars`- contains the detection model itself as well as interpolation methods (you can use a model the dose both).
+* `ClassificationVars` - contains the classification model (if exist) as well as interpolation methods.
+* `InspectorVars` - contains the logic as well as the statistical parameters like tracking type and statistics methods like moving average. (The default value will not use previous data)
+* `VisualizationVars` - contains some parameters for the drawing on the frames if needed.
 
 ## More Options
 
