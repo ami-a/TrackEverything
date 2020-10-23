@@ -55,15 +55,18 @@ But there are many more trackers types in OpenCV that you can choose from, here 
 * **MOSSE Tracker**: Very, very fast. Not as accurate as CSRT or KCF but a good choice if you need pure speed. (minimum OpenCV 3.4.1)
 * **GOTURN Tracker**: The only deep learning-based object detector included in OpenCV. It requires additional model files to run. My initial experiments showed it was a bit of a pain to use even though it reportedly handles viewing changes well. (minimum OpenCV 3.2.0)
 
-### Pick Different Statistical Method
+### Pick Different Statistical Method - StatisticalCalculator
 Inside the `InspectorVars` class you can insert a `StatisticalCalculator` object, this class currently contains several different statistical methods.
 * **Non** -No statistical information is saved.
 * **CMA - Cumulative Moving Average** - The data arrive in an ordered datum stream, and the user would like to get the average of all of the data up until the current datum point.
 * **FMA - Finite Moving Average** - The result is the unweighted mean of the previous n data.
 * **EMA - Exponential Moving Average** - It is a first-order infinite impulse response filter that applies weighting factors which decrease exponentially.
 
-### Use a Custom Cop Classifier
-You can make yourself a cop classifier using TensorFlow and images you collect and label them, just add to `models/cop_class`.<br>Make sure to use the sigmoid activation function on the output layer, and update the image reshaping sizes and the `filepathes` var.
+This are just some basic methods and you can add many more.
+
+### Others
+There are many more options in this package, you can use the built in Non-Max Suppressions on your models, you can give each classification category a different weight in the statistics.
+For example - you can use a model to define a person's mood by it's face using head detection and a classification model that gives a back a category of 0 if it dose not have high enough score (for example if the persons is with it's back to the camera). You can then set the impact (0.0-1.0) of category 0 to be very low, and so when the person turns around the data on him is saved and is not overwritten.
 
 ## Future Improvements
 * Add support for multiple cameras
