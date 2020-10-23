@@ -40,8 +40,7 @@ If you want to add the result to the frame, simply use the `draw_visualization(f
 ## More Options
 
 ### Pick Different Tracker Types
-I use in this package tracker objects from the OpenCV library, in the `InspectorVars` class you can choose different type of trackers, the default tracker type is `CSRT`.
-[OpenCV CSRT tracker](https://docs.opencv.org/3.4/d2/da2/classcv_1_1TrackerCSRT.html) (A [Discriminative Correlation Filter Tracker with Channel and Spatial Reliability](https://arxiv.org/abs/1611.08461)). <p align="center"><img src="images/charts/csr_dcf.png" width=506 height=658></p>
+I use in this package tracker objects from the OpenCV library, in the `InspectorVars` class you can choose different type of trackers, the default tracker type is [CSRT](https://docs.opencv.org/3.4/d2/da2/classcv_1_1TrackerCSRT.html) (A [Discriminative Correlation Filter Tracker with Channel and Spatial Reliability](https://arxiv.org/abs/1611.08461)). <p align="center"><img src="images/charts/csr_dcf.png" width=506 height=658></p>
 But there are many more trackers types in OpenCV that you can choose from, here is a summary by Adrian Rosebrock: 
 * **BOOSTING Tracker**: Based on the same algorithm used to power the machine learning behind Haar cascades (AdaBoost), but like Haar cascades, is over a  decade old. This tracker is slow and doesn’t work very well. Interesting only for legacy reasons and comparing other algorithms. (minimum OpenCV 3.0.0)
 * **MIL Tracker**: Better accuracy than BOOSTING tracker but does a poor job of reporting failure. (minimum OpenCV 3.0.0)
