@@ -104,13 +104,6 @@ For each unmatched detector, we create a new tracker with the detector's data, f
 ### 5th Step - Decide What to Do
 
 After step 4 the `Trackers` list is up to date with all the statistical and current data. The tracker class has a method to return the current classifications and confidence of those scores, we then update the detectors and iterate through them. A detector with low confidence score probably came from a tracker with not enough data (need at least `num_avg` data point to get the maximum score) or the detection is poor, we mark those in orange. A detector with a high enough confidence score will be green if it's not a cop, and red/blue if it is. The trackers that are not covered with detection boxes will show in cyan.
-<p align="center"><img src="images/screens/vid_08.png" width=564 height=383></p>
-<p align="center"><img src="images/screens/vid_03.png" width=564 height=383></p>
-
-## Results
-
-I only tested it on some videos I found online but the results are pretty good for cops and ok for parking officers. It requires more work and maybe a decent cop dataset to take the cop model further and into more countries.
-
 
 
 
