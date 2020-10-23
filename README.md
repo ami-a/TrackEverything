@@ -39,7 +39,7 @@ If you want to add the result to the frame, simply use the `draw_visualization(f
 
 ## More Options
 
-### Pick Different Tracker Types
+### Pick A Different Tracker Type
 I use in this package tracker objects from the OpenCV library, in the `InspectorVars` class you can choose different type of trackers, the default tracker type is [CSRT](https://docs.opencv.org/3.4/d2/da2/classcv_1_1TrackerCSRT.html) (A [Discriminative Correlation Filter Tracker with Channel and Spatial Reliability](https://arxiv.org/abs/1611.08461)).
 
 <p align="center"><img src="images/charts/csr_dcf.png" width="506" height="446"/><br>Overview of the CSR-DCF approach. An automatically estimated spatial reliability map restricts the correlation filter to the parts suitable for tracking (top) improving localization within a larger search region and performance for irregularly shaped objects. Channel reliability weights calculated in the constrained optimization
@@ -56,7 +56,10 @@ But there are many more trackers types in OpenCV that you can choose from, here 
 * **GOTURN Tracker**: The only deep learning-based object detector included in OpenCV. It requires additional model files to run. My initial experiments showed it was a bit of a pain to use even though it reportedly handles viewing changes well. (minimum OpenCV 3.2.0)
 
 ### Pick Different Statistical Method
-You can choose from [here](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md) different object detection models and add them to `models/persons` and change the `model_name` var. Make sure to choose only models with boxes as output.
+Inside the `InspectorVars` class you can insert a `StatisticalCalculator` object, this class currently contains several different statistical methods.
+* **CMA - Cumulative Moving Average**
+* **FMA - FiniteM Moving Average**
+* **EMA - Exponential Moving Average**
 
 ### Use a Custom Cop Classifier
 You can make yourself a cop classifier using TensorFlow and images you collect and label them, just add to `models/cop_class`.<br>Make sure to use the sigmoid activation function on the output layer, and update the image reshaping sizes and the `filepathes` var.
