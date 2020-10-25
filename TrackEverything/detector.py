@@ -43,9 +43,9 @@ class Detector:
             self.det_vars,
             img,
         )
-        #if detection faild
+        #if detection failed
         if not detection_arr:
-            #update trakers
+            #update trackers
             self.trackers =inspector.update_trackers(
                 img,
                 self.trackers,
@@ -82,7 +82,7 @@ class Detector:
 
     def draw_visualization(self,img,original_size=None):
         """Draw bounding boxes and lables around targets using visualization
-        varaubles as settings
+        valuables as settings
 
         Args:
             img (np.array): frame to draw on
@@ -91,11 +91,11 @@ class Detector:
         visu.draw_boxes(img,self.detections,self.trackers,self.vis_var,org_img_size=original_size)
 
     def get_current_class_summary(self):
-        """A dictionary containig the total number of current detections by class
+        """A dictionary containing the total number of current detections by class
         (only classes with more than one detection exist)
 
         Returns:
-            Dictionary: dictionary containig the total number of current detections by class
+            Dictionary: dictionary containing the total number of current detections by class
         """
         class_summary ={}
         for detection in self.detections:

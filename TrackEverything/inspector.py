@@ -26,7 +26,7 @@ class DetectedObj:
         """get the current classification class of the detected object
 
         Returns:
-            [int,flota]: The class number and score
+            [int,float]: The class number and score
         """
         class_num=np.argmax(self.class_score)
         return class_num, self.class_score[class_num]
@@ -94,7 +94,7 @@ class TrackerObj:
         """Return the current highest class number(0 based) and it's score
 
         Returns:
-            [class_num,calss_score]:Return the highest class number(0 based) and it's score
+            [class_num,class_score]:Return the highest class number(0 based) and it's score
         """
         score=self.statistical_calc.get_score()
         return score
@@ -108,11 +108,11 @@ class TrackerObj:
         return self.fails>self.inspector_vars.max_trck_fails
 
 def update_trackers(frame,trackers,penalties=0,mark_new=True):
-    """Update all the trackers using the new freame
+    """Update all the trackers using the new frame
 
     Args:
         frame ([type]): new frame
-        trackers (List[TrackerObj]): List of trakers to update
+        trackers (List[TrackerObj]): List of trackers to update
         penalties (int, optional): Amount of penaltie. Defaults to 0.
         mark_new (bool, optional): Mark tracker as new or old,
         if it's old, later the bounding box will be reset to be more accurate
@@ -207,7 +207,7 @@ def assign_detections_to_trackers(
             else:
                 matches.append([d_index,t_index])#add the matched pairs detections first
 
-    #importent to be last so the indecise wont change
+    #important to be last so the indices wont change
     #Creates new trackers for the unmatched detections
     for d_index in unmatched_detections:
         trackers+=[TrackerObj(
@@ -220,7 +220,7 @@ def assign_detections_to_trackers(
 
     transfer_matches(detections,trackers,matches,frame,inspector_vars)
 
-    #update faild trakers and delete destroyable ones
+    #update failed trackers and delete destroyable ones
     for t_index in unmatched_trackers:
         trackers[t_index].fails+=inspector_vars.penaltie()
     trackers = [trk for trk in trackers if not trk.destroy()]
@@ -234,7 +234,7 @@ def transfer_matches(detections,trackers,matches,frame,inspector_vars):
     Args:
         detections (List[DetectedObj]): List of DetectedObj
         trackers (List[TrackerObj]): List of TrackerObj
-        matches (List[[det_id,trck_id]]): List of pairs indecise matching the trackers and detectors
+        matches (List[[det_id,trck_id]]): List of pairs indices matching the trackers and detectors
         frame (np.ndarray): The current frame (used for updating old trackers by creating new ones)
         only if inspector_vars.trck_resizing=True
         inspector_vars (InspectorVars): Used for creating new trackers
