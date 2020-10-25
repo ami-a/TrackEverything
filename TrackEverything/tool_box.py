@@ -224,7 +224,7 @@ class Ids:
         """Gets the next id(+1) and update the current one
 
         Returns:
-            [float/int]: The previuse id+1
+            [float/int]: The previous id+1
         """
         self.current +=1
         return self.current
@@ -239,12 +239,12 @@ class InspectorVars:
         trck_reward_pt (float): Positive float representing the reward val. 0.5
         trck_type (Trackers): Type of tracker to use get from Trackers enume. def CSRT
         trck_id_generator (Ids): Entity to generate unique ids for trackers. def Ids(0)
-        trck_resizing (bool): whether or not creat new resized tracker in each detection match.
+        trck_resizing (bool): whether or not create new resized tracker in each detection match.
             def True
         iou_paring_threshold (float): The max IOU score for paring tracker and detection. def 0.05
         stat_calc (stat_m.StatisticalCalculator): StatisticalCalculator object for calculating
             statistical data. def stat_m.StatisticalCalculator()
-        saved_stat_calc_holder (bool): Whether or not to creat a new statistical calculator for
+        saved_stat_calc_holder (bool): Whether or not to create a new statistical calculator for
             the tracker, if not None then the saved_stat_calc_holder reference will be used.
     """
     # pylint: disable=too-many-instance-attributes
