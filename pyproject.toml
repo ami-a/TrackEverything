@@ -1,0 +1,92 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "TrackEverything"
+dynamic = ["version"]
+description = "Add tracking, detection-to-track matching and temporal statistical smoothing to any detection or classification model."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Ami-A", email = "schrodingerbot@gmail.com" }]
+keywords = [
+    "object-tracking",
+    "object-detection",
+    "multi-object-tracking",
+    "opencv",
+    "computer-vision",
+    "hungarian-algorithm",
+    "video-analytics",
+    "deep-learning",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+    "Topic :: Multimedia :: Video",
+    "Typing :: Typed",
+]
+dependencies = [
+    "numpy>=1.20",
+    "scipy>=1.6",
+    "Pillow>=8.0",
+    "opencv-contrib-python>=4.5.1",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7", "pytest-cov>=4"]
+lint = ["ruff>=0.6"]
+build = ["build>=1.0", "twine>=5"]
+dev = ["TrackEverything[test,lint,build]"]
+
+[project.urls]
+Homepage = "https://github.com/ami-a/TrackEverything"
+Source = "https://github.com/ami-a/TrackEverything"
+Issues = "https://github.com/ami-a/TrackEverything/issues"
+Changelog = "https://github.com/ami-a/TrackEverything/blob/main/CHANGELOG.md"
+"Example: Mask Detection" = "https://github.com/ami-a/MaskDetection"
+"Example: Cop Detection" = "https://github.com/ami-a/CopDetection"
+
+[tool.setuptools]
+packages = ["TrackEverything"]
+include-package-data = false
+
+[tool.setuptools.package-data]
+TrackEverything = ["py.typed"]
+
+[tool.setuptools.dynamic]
+version = { attr = "TrackEverything.__version__" }
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+addopts = "-q --strict-markers --strict-config"
+
+[tool.coverage.run]
+source = ["TrackEverything"]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+extend-exclude = ["build", "dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "UP", "SIM", "RUF", "I", "C4", "PIE", "RET"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501"]
