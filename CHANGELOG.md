@@ -5,6 +5,24 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-09-22
+
+### Fixed
+
+- **`StatMethods` had no members again on Python 3.13.** 2.0.0 wrapped the
+  functions in `functools.partial` so that the `Enum` would treat them as
+  members rather than methods. Python 3.13 made `functools.partial` a method
+  descriptor too, which reinstated the exact bug it was working around:
+  `list(StatMethods)` was empty, `StatMethods["CMA"]` raised `KeyError`, and
+  importing the module emitted a `FutureWarning`. The functions are now held in
+  a small non-descriptor wrapper, which is a member on every supported version.
+  `enum.member()` would also work but only exists from 3.11.
+
+### Changed
+
+- CI actions moved to `actions/checkout@v7`, `actions/setup-python@v7` and
+  `actions/upload-artifact@v7`, clearing the Node 20 deprecation warnings.
+
 ## [2.0.0] - 2026-09-21
 
 A compatibility release. Version 1.7.2 could not be imported at all on Python
@@ -101,5 +119,6 @@ first and pinning it with a regression test.
 
 Last release of the original series.
 
+[2.0.1]: https://github.com/ami-a/TrackEverything/releases/tag/v2.0.1
 [2.0.0]: https://github.com/ami-a/TrackEverything/releases/tag/v2.0.0
 [1.7.2]: https://github.com/ami-a/TrackEverything/releases/tag/v1.7.2

@@ -7,7 +7,6 @@ that has been classified consistently for the last hundred frames.
 import copy
 from dataclasses import dataclass, field
 from enum import Enum
-from functools import partial
 from typing import Callable, Optional, Union
 
 import numpy as np
@@ -163,19 +162,38 @@ def exponential_moving_average(param: StatParams) -> np.ndarray:
     return beta*param.pre_score+(1-beta)*param.new_score_pt
 #endregion
 
+class _StatMethod:
+    """A callable holder that an ``Enum`` will accept as a member value.
+
+    Anything in an ``Enum`` body that implements the descriptor protocol becomes
+    a method rather than a member, leaving the enum with no members at all. A
+    bare function has always done this, and from Python 3.13 so does
+    :func:`functools.partial`. A plain instance of this class is not a
+    descriptor on any version, so it stays a member everywhere.
+
+    ``enum.member()`` would also work, but only from Python 3.11.
+    """
+    __slots__ = ("func",)
+
+    def __init__(self, func: Callable[[StatParams], np.ndarray]):
+        self.func = func
+
+    def __call__(self, *args, **kwargs) -> np.ndarray:
+        return self.func(*args, **kwargs)
+
+    def __repr__(self) -> str:
+        return f"<statistical method {self.func.__name__}>"
+
 class StatMethods(Enum):
     """Enum of statistical methods used to calculate the score.
 
     Members are callable, so ``StatMethods.EMA(params)`` and passing the member
-    itself as ``StatisticalCalculator(method=...)`` both work. The values are
-    wrapped in :func:`functools.partial` because a bare function in an ``Enum``
-    body is treated as a method rather than a member, which would leave this
-    enum with no members at all.
+    itself as ``StatisticalCalculator(method=...)`` both work.
     """
-    Non=partial(no_average)
-    CMA=partial(cumulative_moving_average)
-    FMA=partial(finite_moving_average)
-    EMA=partial(exponential_moving_average)
+    Non=_StatMethod(no_average)
+    CMA=_StatMethod(cumulative_moving_average)
+    FMA=_StatMethod(finite_moving_average)
+    EMA=_StatMethod(exponential_moving_average)
 
     def __call__(self, *args, **kwargs) -> np.ndarray:
         return self.value(*args, **kwargs)

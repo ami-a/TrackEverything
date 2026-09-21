@@ -15,7 +15,7 @@ Typical use::
 # Keep this a plain string literal on its own line: the build backend reads it
 # statically from the AST, and only falls back to importing the package (which
 # would drag cv2 and numpy into the build) if it cannot.
-__version__ = "2.0.0"
+__version__ = "2.0.1"
 
 # Import order is alphabetical (enforced by the linter) and safe: importing
 # `.detector` first pulls the rest of the chain in dependency order anyway.

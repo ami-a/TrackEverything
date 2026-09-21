@@ -7,9 +7,9 @@ statistical smoothing on top of a model you already have — TensorFlow, PyTorch
 or anything else with a `.predict()`.
 
 [![CI](https://github.com/ami-a/TrackEverything/actions/workflows/ci.yml/badge.svg)](https://github.com/ami-a/TrackEverything/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/TrackEverything?color=blue)](https://pypi.org/project/TrackEverything/)
-[![Python](https://img.shields.io/pypi/pyversions/TrackEverything)](https://pypi.org/project/TrackEverything/)
-[![License](https://img.shields.io/pypi/l/TrackEverything)](https://github.com/ami-a/TrackEverything/blob/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/TrackEverything?label=PyPI&color=blue)](https://pypi.org/project/TrackEverything/)
+[![Python](https://img.shields.io/pypi/pyversions/TrackEverything?label=Python)](https://pypi.org/project/TrackEverything/)
+[![License](https://img.shields.io/pypi/l/TrackEverything?label=License)](https://github.com/ami-a/TrackEverything/blob/main/LICENSE)
 [![Downloads](https://static.pepy.tech/badge/trackeverything)](https://pepy.tech/project/trackeverything)
 [![Hits](https://hits.sh/github.com/ami-a/TrackEverything.svg?label=visits&color=blue&extraCount=132000)](https://hits.sh/github.com/ami-a/TrackEverything/)
 
