@@ -13,9 +13,9 @@ or anything else with a `.predict()`.
 [![Python](https://img.shields.io/pypi/pyversions/TrackEverything)](https://pypi.org/project/TrackEverything/)
 [![License](https://img.shields.io/pypi/l/TrackEverything)](https://github.com/ami-a/TrackEverything/blob/main/LICENSE)
 [![Downloads](https://static.pepy.tech/badge/trackeverything)](https://pepy.tech/project/trackeverything)
-[![Hits](https://hits.sh/github.com/ami-a/TrackEverything.svg?label=visits&color=blue)](https://hits.sh/github.com/ami-a/TrackEverything/)
+[![Hits](https://hits.sh/github.com/ami-a/TrackEverything.svg?label=visits&color=blue&extraCount=132000)](https://hits.sh/github.com/ami-a/TrackEverything/)
 
-<img src="https://raw.githubusercontent.com/ami-a/TrackEverything/main/images/demo.gif" alt="TrackEverything running on street footage: each person keeps a stable numeric id across frames while a mask classifier's confidence is smoothed over time" width="880">
+<img src="https://raw.githubusercontent.com/ami-a/TrackEverything/main/images/logo.svg" alt="TrackEverything" width="880">
 
 </div>
 
@@ -51,7 +51,16 @@ confident classification.
   ask for it.
 
 <div align="center">
+
+<img src="https://raw.githubusercontent.com/ami-a/TrackEverything/main/images/demo.jpg" alt="Four people tracked in a street scene, each with a persistent numeric id and a smoothed mask-classification confidence" width="880">
+
+<sub>Real output. Each box carries an id that survives between frames, and a confidence
+score accumulated over all frames so far rather than measured from this one.</sub>
+
 <img src="https://raw.githubusercontent.com/ami-a/TrackEverything/main/images/demo-crowd.jpg" alt="A crowded street scene with a dozen simultaneously tracked people, each labelled with an id and a confidence score" width="880">
+
+<sub>The same pipeline holding a dozen identities at once.</sub>
+
 </div>
 
 ## Installation
