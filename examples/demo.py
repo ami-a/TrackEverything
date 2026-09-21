@@ -21,8 +21,8 @@ import numpy as np
 
 from TrackEverything import (
     ClassificationVars,
-    Detector,
     DetectionVars,
+    Detector,
     InspectorVars,
     StatisticalCalculator,
     StatMethods,
