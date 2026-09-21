@@ -1,8 +1,6 @@
 <div align="center">
 
-# TrackEverything
-
-**Turn any detection model into a tracker.**
+<img src="https://raw.githubusercontent.com/ami-a/TrackEverything/main/images/logo.svg" alt="TrackEverything - turn any detection model into a tracker" width="880">
 
 Add OpenCV tracking, Hungarian detection-to-track matching and temporal
 statistical smoothing on top of a model you already have — TensorFlow, PyTorch,
@@ -14,8 +12,6 @@ or anything else with a `.predict()`.
 [![License](https://img.shields.io/pypi/l/TrackEverything)](https://github.com/ami-a/TrackEverything/blob/main/LICENSE)
 [![Downloads](https://static.pepy.tech/badge/trackeverything)](https://pepy.tech/project/trackeverything)
 [![Hits](https://hits.sh/github.com/ami-a/TrackEverything.svg?label=visits&color=blue&extraCount=132000)](https://hits.sh/github.com/ami-a/TrackEverything/)
-
-<img src="https://raw.githubusercontent.com/ami-a/TrackEverything/main/images/logo.svg" alt="TrackEverything" width="880">
 
 </div>
 
