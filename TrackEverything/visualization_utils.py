@@ -1,7 +1,8 @@
-"""A module for managing the visualization of the trackers and detections
-"""
+"""Drawing of tracker and detection overlays onto frames."""
+from collections.abc import Sequence
 from dataclasses import dataclass, field
-from typing import List
+from typing import Optional
+
 import numpy as np
 import PIL.Image as Image
 import PIL.ImageDraw as ImageDraw
@@ -35,53 +36,80 @@ STANDARD_COLORS = [
 
 @dataclass
 class VisualizationVars:
-    """Class for deffining the visualization on the frame
+    """Class for defining the visualization on the frame.
+
     Args:
-        labels (list[str]): list of lables for the classes by order of the class vector.
-        colors (list[str]): list of colors strings for the classes by order of the class vector.
-            def=STANDARD_COLORS(126)
+        labels (list[str]): list of labels for the classes, in the order of the class vector.
+        colors (list[str]): list of color strings for the classes, in the order of the class
+            vector. def=STANDARD_COLORS(126)
         show_ids (bool): whether to show the detection id. def=True
         show_trackers (bool): whether to show the trackers bounding box (if trck_resizing in
-            the InspectorVars is true the bounding box of the tracker on detected object will
-            be hidden by the detection bounding box) def=False.
+            the InspectorVars is true, the bounding box of the tracker on a detected object
+            will be hidden by the detection bounding box). def=False
         uncertainty_threshold (float): a threshold for the final score (including
-            classification and statistics) where if not met will be marked with
-            uncertainty_label tag in uncertainty_color color. def=0
-        uncertainty_color (str): the color for uncertain final score. def="Orange"
-        uncertainty_label (str): the label for uncertain final score. def="Unknown"
+            classification and statistics) where, if not met, the detection will be marked
+            with the uncertainty_label tag in the uncertainty_color color. def=0
+        uncertainty_color (str): the color for an uncertain final score. def="Orange"
+        uncertainty_label (str): the label for an uncertain final score. def="Unknown"
     """
-    labels:List[str]=field(default_factory=lambda: None)
-    colors:List[str]=field(default_factory=lambda: STANDARD_COLORS)
+    labels:Optional[list[str]]=None
+    #copy, so that a caller mutating one instance's palette cannot affect
+    #every other instance or the module-level list itself
+    colors:list[str]=field(default_factory=lambda: list(STANDARD_COLORS))
     show_ids:bool=True
     show_trackers:bool=False
     uncertainty_threshold:float=0
     uncertainty_color:str="Orange"
     uncertainty_label:str="Unknown"
 
-def draw_boxes(
-        image,
-        detections,
-        trackers,
-        v_vars:VisualizationVars=VisualizationVars(),
-        org_img_size=None
-    ):
-    """A method for drawing boxes and labels on the image (it will replace the
-    image with the new one)
+def _measure_text(draw: ImageDraw.ImageDraw, font, text: str) -> tuple[float, float]:
+    """Return the ``(width, height)`` of ``text`` as rendered with ``font``.
+
+    ``ImageFont.getsize`` was removed in Pillow 10. ``ImageDraw.multiline_textbbox``
+    has existed since Pillow 8.0 and, unlike ``font.getbbox``, is available for both
+    ``FreeTypeFont`` and the bitmap font returned by ``ImageFont.load_default()`` on
+    every supported version. It also measures every line of a multi-line label,
+    which the labels here always are.
 
     Args:
-        image (np.array): The image to draw on
-        detections (List[DetectedObj]): A list of detected objects to draw boxes around
-        trackers (List[TrackerObj]): A list of trackers objects to draw boxes around.
-            (only if v_vars.show_trackers).
-        v_vars (VisualizationVars): Extra parameters for the drwing style.
-        org_img_size (width, height):The original image size for bounding boxes
+        draw (ImageDraw.ImageDraw): the draw object the text will be rendered with.
+        font: the font the text will be rendered with.
+        text (str): the text to measure, possibly containing newlines.
+
+    Returns:
+        Tuple[float, float]: the width and height of the rendered text.
     """
+    if hasattr(draw, "multiline_textbbox"):# Pillow >= 8.0
+        left, top, right, bottom = draw.multiline_textbbox((0, 0), text, font=font)
+        return right - left, bottom - top
+    return font.getsize(text)# Pillow < 8.0
+
+def draw_boxes(
+        image: np.ndarray,
+        detections: list,
+        trackers: list,
+        v_vars: Optional[VisualizationVars] = None,
+        org_img_size: Optional[tuple[int, int]] = None,
+    ) -> None:
+    """Draw boxes and labels on the image, replacing the image contents in place.
+
+    Args:
+        image (np.ndarray): The image to draw on.
+        detections (List[DetectedObj]): A list of detected objects to draw boxes around.
+        trackers (List[TrackerObj]): A list of tracker objects to draw boxes around
+            (only if ``v_vars.show_trackers``).
+        v_vars (VisualizationVars): Extra parameters for the drawing style.
+        org_img_size (width, height): The original image size the bounding boxes were
+            created against.
+    """
+    if v_vars is None:
+        v_vars=VisualizationVars()
     #calculate the factor for bounding box with different sized images
     if org_img_size is None:
         factors=(1,1)
     else:
         factors=(image.shape[1]/org_img_size[0],image.shape[0]/org_img_size[1])
-    #creats the ImageDraw object
+    #creates the ImageDraw object
     image_pil = Image.fromarray(np.uint8(image)).convert('RGB')
     draw = ImageDraw.Draw(image_pil)
     #draw trackers
@@ -98,28 +126,35 @@ def draw_boxes(
             color=v_vars.uncertainty_color
             text.append(f"{v_vars.uncertainty_label}\n")#add uncertainty label
         else:
-            color=v_vars.colors[class_num]
+            color=v_vars.colors[class_num%len(v_vars.colors)]
             #if labels are provided write them
             if v_vars.labels is not None:
                 text.append(f"{v_vars.labels[class_num]}\n")
         if v_vars.show_ids:
-            text.append(f"Id:{str(det.id_num)}\n")
+            text.append(f"Id:{det.id_num!s}\n")
         #add the final score to the tag
         text.append(f"{100*det.class_score[class_num]:.0f}%")
         draw_box_and_text(draw,det.bounding_box,color=color,text=''.join(text),factors=factors)
     #replace the old image with new
     np.copyto(image, np.array(image_pil))
 
-def draw_box_and_text(draw,bounding_box,color="Red",thickness=2,text="",factors=(1,1)):
-    """This method draws a box with a tag using the draw object
+def draw_box_and_text(
+        draw: ImageDraw.ImageDraw,
+        bounding_box: Sequence[float],
+        color: str = "Red",
+        thickness: int = 2,
+        text: str = "",
+        factors: tuple[float, float] = (1, 1),
+    ) -> None:
+    """Draw a box with a tag using the draw object.
 
     Args:
-        draw (ImageDraw): the ImageDraw object for drawing in.
-        bounding_box ((xmin,ymin,width,height)): the box coordinates
+        draw (ImageDraw.ImageDraw): the ImageDraw object to draw in.
+        bounding_box ((xmin,ymin,width,height)): the box coordinates.
         color (str, optional): color for box and text. Defaults to "Red".
         thickness (int, optional): thickness of box lines. Defaults to 2.
         text (str, optional): the text to draw with the box. Defaults to "".
-        factors (width_ratio, height_ratio):The ratio size for bounding boxes
+        factors (width_ratio, height_ratio): The size ratio for bounding boxes.
     """
     left=bounding_box[0]*factors[0]
     top=bounding_box[1]*factors[1]
@@ -133,22 +168,17 @@ def draw_box_and_text(draw,bounding_box,color="Red",thickness=2,text="",factors=
         )
     try:
         font = ImageFont.truetype('arial.ttf', 22)
-        #font = ImageFont.truetype('arial.ttf', int(rs[0]*(72/288)))
-    except IOError:
+    except OSError:
         font = ImageFont.load_default()
     # If the total height of the display strings added to the top of the bounding
     # box exceeds the top of the image, stack the strings below the bounding box
     # instead of above.
-    display_str_height = font.getsize(text)[1]
+    _text_width, text_height = _measure_text(draw, font, text)
     # Each display_str has a top and bottom margin of 0.05x.
-    total_display_str_height = (1 + 2 * 0.05) * display_str_height
+    total_display_str_height = (1 + 2 * 0.05) * text_height
 
-    if top > total_display_str_height:
-        text_bottom = top
-    else:
-        text_bottom = bottom + total_display_str_height
+    text_bottom = top if top > total_display_str_height else bottom + total_display_str_height
 
-    text_height = font.getsize(text)[1]
     margin = np.ceil(0.05 * text_height)
     #draw text
     draw.text(
