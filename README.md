@@ -12,7 +12,8 @@ or anything else with a `.predict()`.
 [![PyPI](https://img.shields.io/pypi/v/TrackEverything?color=blue)](https://pypi.org/project/TrackEverything/)
 [![Python](https://img.shields.io/pypi/pyversions/TrackEverything)](https://pypi.org/project/TrackEverything/)
 [![License](https://img.shields.io/pypi/l/TrackEverything)](https://github.com/ami-a/TrackEverything/blob/main/LICENSE)
-[![Downloads](https://static.pepy.tech/badge/trackeverything/month)](https://pepy.tech/project/trackeverything)
+[![Downloads](https://static.pepy.tech/badge/trackeverything)](https://pepy.tech/project/trackeverything)
+[![Hits](https://hits.sh/github.com/ami-a/TrackEverything.svg?label=visits&color=blue)](https://hits.sh/github.com/ami-a/TrackEverything/)
 
 <img src="https://raw.githubusercontent.com/ami-a/TrackEverything/main/images/demo.gif" alt="TrackEverything running on street footage: each person keeps a stable numeric id across frames while a mask classifier's confidence is smoothed over time" width="880">
 
